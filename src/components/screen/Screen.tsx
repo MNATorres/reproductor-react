@@ -1,9 +1,13 @@
-import React from 'react'
 import Box from '@mui/material/Box';
-import './Screen.css'
+import './Screen.css';
+import { MusicContext } from '../../context/GlobalContext';
+import { useContext } from 'react';
+
 
 
 export default function Screen() {
+const {currentSong} = useContext(MusicContext)
+
   return (
     <Box
     className='screen'
@@ -18,7 +22,7 @@ export default function Screen() {
         borderRadius: 1,
         border: '1px solid #bdbdbd'
     }}
-    >Screen
+    >{currentSong}
     </Box>
   )
 }

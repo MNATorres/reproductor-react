@@ -1,7 +1,5 @@
 import { Box } from '@mui/material'
-import React from 'react'
-
-const music = ["Asturias", "Cambalache", "Azteca", "Electro", "Recuerdos"]
+import { music } from './../../context/GlobalContext'
 
 export default function ListMusic() {
   return (
