@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 export const music = ["Asturias", "Cambalache", "Azteca", "Electro", "Recuerdos"];
+const modes = ["Normal", "Infinite", "Automatic"]
 
 interface Music {
     handleNext: () => void
