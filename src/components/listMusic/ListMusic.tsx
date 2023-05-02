@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { music } from './../../context/GlobalContext'
 import { MusicContext } from './../../context/GlobalContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export default function ListMusic() {
   const { currentSong, handleSelectSong } = useContext(MusicContext)

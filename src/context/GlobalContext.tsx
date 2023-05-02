@@ -8,7 +8,6 @@ interface MusicActions {
     handlePrev: () => void
     currentSong: string | null
     handleSelectSong: (selectMusic: string) => void
-    selected: boolean
 }
 
 
@@ -17,21 +16,16 @@ export const MusicContext = React.createContext<MusicActions>({
     handlePrev: () => { },
     handleSelectSong: () => {},
     currentSong: "",
-    selected: false
 });
 
 export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     const [song, setSong] = useState(0)
     const [currentSong, setCurrentSong] = useState<null | string>(music[0]);
-    const [selected, setSelected] = useState(false)
-
-
 
     const handleNext = () => {
         const nextSong = (song + 1) % music.length;
-        setCurrentSong(music[nextSong]);
         setSong(nextSong);
-        console.log(nextSong)
+        setCurrentSong(music[nextSong]);
       };
 
     const handlePrev = () => {
@@ -41,17 +35,16 @@ export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
         }
         setSong(prevSong);
         setCurrentSong(music[prevSong]);
-        console.log(prevSong)
     };
 
     const handleSelectSong = (selectMusic:string) => {
+        setSong(music.indexOf(selectMusic));
         setCurrentSong(selectMusic);
-        setSelected(true);
     }
 
 
     return (
-        <MusicContext.Provider value={{ handleNext, handlePrev, handleSelectSong, currentSong, selected }}>
+        <MusicContext.Provider value={{ handleNext, handlePrev, handleSelectSong, currentSong }}>
             {children}
         </MusicContext.Provider>
     )
