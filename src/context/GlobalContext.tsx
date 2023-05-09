@@ -8,6 +8,8 @@ interface MusicActions {
     handlePrev: () => void
     currentSong: string | null
     handleSelectSong: (selectMusic: string) => void
+    handleMode: () => void
+    mode: string
 }
 
 
@@ -16,35 +18,46 @@ export const MusicContext = React.createContext<MusicActions>({
     handlePrev: () => { },
     handleSelectSong: () => {},
     currentSong: "",
+    handleMode: () => {},
+    mode: ""
 });
 
 export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
-    const [song, setSong] = useState(0)
+    const [countSong, setCountSong] = useState(0)
     const [currentSong, setCurrentSong] = useState<null | string>(music[0]);
+    const [mode, setMode] = useState<any>([modes[0]])
+    const [indexMode, setIndexMode] = useState(0)
 
     const handleNext = () => {
-        const nextSong = (song + 1) % music.length;
-        setSong(nextSong);
+        const nextSong = (countSong + 1) % music.length;
+        setCountSong(nextSong);
         setCurrentSong(music[nextSong]);
       };
 
     const handlePrev = () => {
-        let prevSong = song - 1;
+        let prevSong = countSong - 1;
         if (prevSong < 0) {
             prevSong = music.length - 1;
         }
-        setSong(prevSong);
+        setCountSong(prevSong);
         setCurrentSong(music[prevSong]);
     };
 
+    const handleMode = () => {
+        const nextMode = (indexMode + 1) % modes.length;
+        setIndexMode(nextMode)
+        setMode(modes[nextMode])
+        console.log(mode)
+    }
+
     const handleSelectSong = (selectMusic:string) => {
-        setSong(music.indexOf(selectMusic));
+        setCountSong(music.indexOf(selectMusic));
         setCurrentSong(selectMusic);
     }
 
 
     return (
-        <MusicContext.Provider value={{ handleNext, handlePrev, handleSelectSong, currentSong }}>
+        <MusicContext.Provider value={{ handleNext, handlePrev, handleSelectSong, currentSong, handleMode, mode }}>
             {children}
         </MusicContext.Provider>
     )
